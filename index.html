@@ -23,7 +23,10 @@
         height: 50vh;
         box-shadow: 5px 5px 10px rgba(0,0,0,50%);
         border-radius: 5vh;
-        transition: background-color 2s;
+      }
+      #clock {
+        font-size: 2.5vh;
+        text-align: center;
       }
     </style>
   </head>
@@ -33,10 +36,12 @@
       <input class="button" type="button" value="Send">
     </div>
     <div id="box"></div>
+    <p id="clock"></p>
     <script>
       const color = document.querySelector('input.color');
       const button = document.querySelector('input.button');
       const box = document.querySelector('#box');
+      const clock = document.querySelector('#clock');
       
       const url = 'https://script.google.com/macros/s/AKfycbzAp3f5PWKGmUil7oE_YeqlAtYlQqPeeRQXRlGwLtziMa9tIKPmkT5ZLx-l1_XSvwQrCA/exec';
       
@@ -65,6 +70,12 @@
       seconds = Math.ceil(seconds / 10) * 10;
       date.setSeconds(seconds);
       schedule(date.getTime(), () => setInterval(refresh, 1000 * 10));
+      
+      function updateClock() {
+        clock.innerText = new Date().toTimeString();
+        window.requestAnimationFrame(updateClock);
+      }
+      window.requestAnimationFrame(updateClock);
     </script>
   </body>
 </html>
