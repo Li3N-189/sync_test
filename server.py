@@ -41,7 +41,6 @@ async def websocket_endpoint(websocket: WebSocket):
             await manager.broadcast(data)
     except WebSocketDisconnect:
         manager.disconnect(websocket)
-        await manager.broadcast("A user disconnected")
 
 # 14 minutes
 INTERVAL = 840;
