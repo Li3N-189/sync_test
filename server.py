@@ -2,6 +2,8 @@ from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.staticfiles import StaticFiles
 from typing import List
 
+import requests
+
 app = FastAPI()
 
 app.mount("/client", StaticFiles(directory="html", html=True), name="html")
@@ -38,3 +40,11 @@ async def websocket_endpoint(websocket: WebSocket):
     except WebSocketDisconnect:
         manager.disconnect(websocket)
         await manager.broadcast("A user disconnected")
+
+# 14 minutes
+INTERVAL = 840000;
+while True:
+    try:
+        requests.get("https://sync-test-8zvh.onrender.com/")
+    finally:
+        time.sleep(INTERVAL)
