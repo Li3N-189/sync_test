@@ -4,6 +4,7 @@ from typing import List
 
 import requests
 import time
+import threading
 
 app = FastAPI()
 
@@ -44,8 +45,10 @@ async def websocket_endpoint(websocket: WebSocket):
 
 # 14 minutes
 INTERVAL = 840000;
-while True:
+def refresh():
     try:
         requests.get("https://sync-test-8zvh.onrender.com/")
     finally:
-        time.sleep(INTERVAL)
+        threading.Timer(INTERVAL, refresh).start()
+
+refresh()
