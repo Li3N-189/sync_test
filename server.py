@@ -51,4 +51,4 @@ def refresh():
     finally:
         threading.Timer(INTERVAL, refresh).start()
 
-refresh()
+threading.Timer(INTERVAL, refresh).start()
