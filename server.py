@@ -44,7 +44,7 @@ async def websocket_endpoint(websocket: WebSocket):
         await manager.broadcast("A user disconnected")
 
 # 14 minutes
-INTERVAL = 840000;
+INTERVAL = 840;
 def refresh():
     try:
         requests.get("https://sync-test-8zvh.onrender.com/")
