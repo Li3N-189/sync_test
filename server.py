@@ -1,7 +1,10 @@
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
+from fastapi.staticfiles import StaticFiles
 from typing import List
 
 app = FastAPI()
+
+app.mount("/client", StaticFiles(directory="html", html=True), name="html")
 
 # 接続中クライアント管理
 class ConnectionManager:
