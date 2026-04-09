@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        #flex {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        #color-picker {
+            width: 40vh;
+            height: 15vh;
+        }
+        #ok {
+            width: 25vh;
+            height: 5vh;
+            background-color: #0088ff;
+            border-radius: 2.5vh;
+            border: none;
+            color: white;
+            font: 2.5vh bold;
+            margin: 0 1vh;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        #ok:hover {
+            transform: scale(1.05);
+            box-shadow: 5px 5px 10px rgba(128,128,128,50%);
+        }
+        #box {
+            width: 50vh;
+            height: 50vh;
+            border-radius: 10vh;
+            box-shadow: 5px 5px 15px rgba(0,0,0,50%);
+            margin: 5vh auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="flex">
+        <input id="color-picker" type="color">
+        <input id="ok" type="button" value="send">
+    </div>
+    <div id="box"></div>
+    <script>
+        const ws = new WebSocket("wss://sync-test-8zvh.onrender.com/ws");
+        
+        const colorPicker = document.getElementById("color-picker");
+        const button = document.getElementById("ok");
+        const box = document.getElementById("box");
+        
+        button.addEventListener("click", () => {
+          ws.send(colorPicker.value);
+        });
+         
+        ws.addEventListener("message", (event) => {
+            box.style.backgroundColor = event.data;
+        });
+    </script>
+</body>
+</html>
