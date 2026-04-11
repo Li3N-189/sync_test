@@ -5,6 +5,12 @@ from typing import List
 import requests
 import time
 import threading
+import logging
+import sys
+
+logging.basicConfig(level=logging.INFO, handlers=[logging.StreamHandler(sys.stdout)])
+
+logging.info("hello from server.py")
 
 app = FastAPI()
 
@@ -38,7 +44,7 @@ async def websocket_endpoint(websocket: WebSocket):
     try:
         while True:
             data = await websocket.receive_text()
-            print("message received: " + data)
+            logging.info("message received: " + data)
             await manager.broadcast(data)
     except WebSocketDisconnect:
         manager.disconnect(websocket)
